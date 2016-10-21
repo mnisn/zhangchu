@@ -1,0 +1,6 @@
+framework module Pods_zhangchu {
+  umbrella header "Pods-zhangchu-umbrella.h"
+
+  export *
+  module * { export * }
+}
