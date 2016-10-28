@@ -18,12 +18,11 @@ class MainTabBarViewController: UITabBarController {
 
         //创建视图控制器
         createViewControllers()
-        //自定制tabbar
-        createTabBar()
+        
     }
     
     //自定制tabbar
-    func createTabBar()
+    func createTabBar(iconTitle:[String], iconNameNormal:[String], iconNameSelect:[String])
     {
         tabBar.hidden = true
         
@@ -41,17 +40,10 @@ class MainTabBarViewController: UITabBarController {
             make.height.equalTo(49)
         }
         
-        let nameArray = ["zhangchu.RecipeViewController","zhangchu.CommunityViewController","zhangchu.HappyLifeViewController","zhangchu.MyViewController"]
         //
-        let iconTitle = ["食谱","乐活","社区","我的"]
-        //
-        let iconNameNormal = ["home_normal","shike_normal","community_normal","mine_normal"]
-        //
-        let iconNameSelect = ["home_select","shike_select","community_select","mine_select"]
-        //
-        let width = screenWidth / CGFloat(nameArray.count)
+        let width = screenWidth / CGFloat(iconTitle.count)
         
-        for i in 0 ..< nameArray.count
+        for i in 0 ..< iconTitle.count
         {
             //
             let btn = UIButton.createButton(nil, bgImgName: iconNameNormal[i], highlightImgName: nil, selectImgName: iconNameSelect[i], target: self, action: #selector(btnClick(_:)))
@@ -68,12 +60,21 @@ class MainTabBarViewController: UITabBarController {
             //标题
             let titleLabel = UILabel.createLabel(iconTitle[i], textAlignment: .Center, font: UIFont.systemFontOfSize(12))
             btn.addSubview(titleLabel)
+            titleLabel.textColor = UIColor.grayColor()
+            titleLabel.tag = 400
             //设置位置
             titleLabel.snp_makeConstraints(closure: {
                 (make) in
                 make.bottom.left.right.equalTo(btn)
                 make.height.equalTo(18)
             })
+            //默认选中第一个
+            if i == 0
+            {
+                btn.selected = true
+                titleLabel.textColor = UIColor.orangeColor()
+                btn.userInteractionEnabled = false
+            }
         }
     }
     
@@ -88,8 +89,15 @@ class MainTabBarViewController: UITabBarController {
             lastbtn.selected = false
             lastbtn.userInteractionEnabled = true
             //
+            let lastlabel = lastbtn.viewWithTag(400) as! UILabel
+            lastlabel.textColor = UIColor.grayColor()
+            
+            //
             btn.selected = true
             btn.userInteractionEnabled = false
+            //
+            let currentLabel = btn.viewWithTag(400) as! UILabel
+            currentLabel.textColor = UIColor.orangeColor()
             //
             selectedIndex = index
         }
@@ -98,14 +106,66 @@ class MainTabBarViewController: UITabBarController {
     //创建视图控制器
     func createViewControllers()
     {
-        let nameArray = ["zhangchu.RecipeViewController","zhangchu.CommunityViewController","zhangchu.HappyLifeViewController","zhangchu.MyViewController"]
+        //从文件Controllers.json中读取数据
+        let path = NSBundle.mainBundle().pathForResource("Controllers", ofType: "json")
+        let data = NSData(contentsOfFile: path!)
+        //
+        var controllerNameArray:[String] = []
+        //
+        var iconTitleArray:[String] = []
+        var iconNameNormalArray:[String] = []
+        var iconNameSelectArray:[String] = []
+        //
+        do
+        {
+            //可能出错的代码
+            let json = try NSJSONSerialization.JSONObjectWithData(data!, options: .MutableContainers)
+            if  json.isKindOfClass(NSArray)
+            {
+                let tmpArray = json as! /*Array<Dictionary<String,String>>*/[[String:String]]
+                //
+                for tmpDic in  tmpArray
+                {
+                    let name = tmpDic["controllerName"]
+                    controllerNameArray.append(name!)
+                    let title = tmpDic["iconTitle"]
+                    iconTitleArray.append(title!)
+                    let iconNormal = tmpDic["iconNameNormal"]
+                    iconNameNormalArray.append(iconNormal!)
+                    let iconSelect = tmpDic["iconNameSelect"]
+                    iconNameSelectArray.append(iconSelect!)
+                }
+            }
+        }
+        catch (let error)
+        {
+            print(error)
+        }
+        //如果获取的数组有错误
+        if iconTitleArray.count == 0
+        {
+            iconTitleArray = ["食谱","乐活","社区","我的"]
+        }
+        if iconNameNormalArray.count == 0
+        {
+            iconNameNormalArray = ["home_normal","shike_normal","community_normal","mine_normal"]
+        }
+        if iconNameSelectArray.count == 0
+        {
+            iconNameSelectArray = ["home_select","shike_select","community_select","mine_select"]
+        }
+        if controllerNameArray.count == 0
+        {
+            controllerNameArray = ["zhangchu.RecipeViewController","zhangchu.CommunityViewController","zhangchu.HappyLifeViewController","zhangchu.MyViewController"]
+        }
+        
         //
         var controllerArray:[UINavigationController] = []
         
-        for i in 0 ..< nameArray.count
+        for i in 0 ..< controllerNameArray.count
         {
             //
-            let controller = NSClassFromString(nameArray[i]) as! UIViewController.Type
+            let controller = NSClassFromString("zhangchu.\(controllerNameArray[i])") as! UIViewController.Type
             //
             let vc = controller.init()
             //
@@ -114,6 +174,10 @@ class MainTabBarViewController: UITabBarController {
             controllerArray.append(nav)
         }
         viewControllers = controllerArray
+        
+        //
+        //自定制tabbar
+        createTabBar(iconTitleArray, iconNameNormal: iconNameNormalArray, iconNameSelect: iconNameSelectArray)
     }
 
     override func didReceiveMemoryWarning() {

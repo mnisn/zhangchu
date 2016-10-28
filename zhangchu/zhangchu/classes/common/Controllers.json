@@ -1,0 +1,27 @@
+
+[
+{
+ "controllerName":"RecipeViewController",
+ "iconNameNormal":"home_normal",
+ "iconNameSelect":"home_select",
+ "iconTitle":"食谱"
+ },
+{
+ "controllerName":"CommunityViewController",
+ "iconNameNormal":"shike_normal",
+ "iconNameSelect":"shike_select",
+ "iconTitle":"乐活"
+ },
+{
+ "controllerName":"HappyLifeViewController",
+ "iconNameNormal":"community_normal",
+ "iconNameSelect":"community_select",
+ "iconTitle":"社区"
+ },
+{
+ "controllerName":"MyViewController",
+ "iconNameNormal":"mine_normal",
+ "iconNameSelect":"mine_select",
+ "iconTitle":"我的"
+ }
+]

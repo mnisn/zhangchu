@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RecommendWidgetImgCell" id="KGk-i7-Jjw" customClass="RecommendWidgetImgCell" customModule="zhangchu" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="75"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="74.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aPX-dR-T6G">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="74.5"/>
+                    </scrollView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="aPX-dR-T6G" secondAttribute="trailing" id="DZV-lx-Xa1"/>
+                    <constraint firstAttribute="bottom" secondItem="aPX-dR-T6G" secondAttribute="bottom" id="PJ9-R6-IOc"/>
+                    <constraint firstItem="aPX-dR-T6G" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="nXw-t0-YOD"/>
+                    <constraint firstItem="aPX-dR-T6G" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="p3o-Ec-DHz"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="scrollView" destination="aPX-dR-T6G" id="f19-l7-CFK"/>
+            </connections>
+            <point key="canvasLocation" x="344.5" y="354.5"/>
+        </tableViewCell>
+    </objects>
+</document>
