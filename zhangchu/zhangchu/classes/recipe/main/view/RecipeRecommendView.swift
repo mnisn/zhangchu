@@ -16,6 +16,8 @@ public enum RecommendWidgetType: Int
     case WidgetToday = 5//今日新品
     case WidgetOther = 3
     case WidgetList = 9
+    case WidgetTalent = 4
+    case WidgetChosen = 8
 }
 
 class RecipeRecommendView: UIView {
@@ -78,10 +80,14 @@ extension RecipeRecommendView:UITableViewDataSource,UITableViewDelegate
         {
             //
             let listModel = model?.data?.widgetList![section - 1]
-            if (listModel?.widget_type?.integerValue)! == RecommendWidgetType.WidgetBtn.rawValue || (listModel?.widget_type?.integerValue)! == RecommendWidgetType.WidgetImg.rawValue || (listModel?.widget_type?.integerValue)! == RecommendWidgetType.WidgetToday.rawValue || (listModel?.widget_type?.integerValue)! == RecommendWidgetType.WidgetOther.rawValue || (listModel?.widget_type?.integerValue)! == RecommendWidgetType.WidgetList.rawValue
+            if (listModel?.widget_type?.integerValue)! == RecommendWidgetType.WidgetBtn.rawValue || (listModel?.widget_type?.integerValue)! == RecommendWidgetType.WidgetImg.rawValue || (listModel?.widget_type?.integerValue)! == RecommendWidgetType.WidgetToday.rawValue || (listModel?.widget_type?.integerValue)! == RecommendWidgetType.WidgetOther.rawValue || (listModel?.widget_type?.integerValue)! == RecommendWidgetType.WidgetList.rawValue || (listModel?.widget_type?.integerValue)! == RecommendWidgetType.WidgetChosen.rawValue
             {
                 //
                 row = 1
+            }
+            else if (listModel?.widget_type?.integerValue)! == RecommendWidgetType.WidgetTalent.rawValue
+            {
+                row = (listModel?.widget_data?.count)! / 4
             }
         }
         return row
@@ -115,6 +121,14 @@ extension RecipeRecommendView:UITableViewDataSource,UITableViewDelegate
             else if (listModel?.widget_type?.integerValue)! == RecommendWidgetType.WidgetList.rawValue
             {
                 height = 60
+            }
+            else if (listModel?.widget_type?.integerValue)! == RecommendWidgetType.WidgetTalent.rawValue
+            {
+                height = 100
+            }
+            else if (listModel?.widget_type?.integerValue)! == RecommendWidgetType.WidgetChosen.rawValue
+            {
+                height = 170
             }
         }
         
@@ -156,17 +170,32 @@ extension RecipeRecommendView:UITableViewDataSource,UITableViewDelegate
             }
             else if (listModel?.widget_type?.integerValue)! == RecommendWidgetType.WidgetOther.rawValue
             {
-                let cell = RecommendOtherFoodCell.createTodayCell(tableView, atIndexPath: indexPath, listModel: listModel)
+                let cell = RecommendOtherFoodCell.createOtherCell(tableView, atIndexPath: indexPath, listModel: listModel)
                 //
                 cell.clickClosure = clickClosure
                 return cell
             }
             else if (listModel?.widget_type?.integerValue)! == RecommendWidgetType.WidgetList.rawValue
             {
-                let cell = RecommendListCell.createTodayCell(tableView, atIndexPath: indexPath, listModel: listModel)
+                let cell = RecommendListCell.createListCell(tableView, atIndexPath: indexPath, listModel: listModel)
                 //
                 cell.clickClosure = clickClosure
-                cell.listModel = listModel
+                return cell
+            }
+            else if (listModel?.widget_type?.integerValue)! == RecommendWidgetType.WidgetTalent.rawValue
+            {
+                let array = NSArray(array: (listModel?.widget_data)!).subarrayWithRange(NSMakeRange(indexPath.row * 4, 4)) as! [RecipeRecommendWidgetData]
+                
+                let cell = RecommentTalentCell.createTalentCell(tableView, atIndexPath: indexPath, cellArray: array)
+                //
+                cell.clickClosure = clickClosure
+                return cell
+            }
+            else if (listModel?.widget_type?.integerValue)! == RecommendWidgetType.WidgetChosen.rawValue
+            {
+                let cell = RecommentChosenCell.createChonsenCell(tableView, atIndexPath: indexPath, listModel: listModel)
+                //
+                cell.clickClosure = clickClosure
                 return cell
             }
             
@@ -184,7 +213,7 @@ extension RecipeRecommendView:UITableViewDataSource,UITableViewDelegate
                 let widgetBtnHeaderView = RecommendWidgetBtnHeaderView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 44))
                 return widgetBtnHeaderView
             }
-            else if listModel?.widget_type?.integerValue == RecommendWidgetType.WidgetToday.rawValue || listModel?.widget_type?.integerValue == RecommendWidgetType.WidgetOther.rawValue
+            else if listModel?.widget_type?.integerValue == RecommendWidgetType.WidgetToday.rawValue || listModel?.widget_type?.integerValue == RecommendWidgetType.WidgetOther.rawValue || listModel?.widget_type?.integerValue == RecommendWidgetType.WidgetTalent.rawValue || listModel?.widget_type?.integerValue == RecommendWidgetType.WidgetChosen.rawValue
             {
                 let headerView = RecommendHeaderView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 54))
                 headerView.clickClosure = clickClosure
@@ -204,12 +233,16 @@ extension RecipeRecommendView:UITableViewDataSource,UITableViewDelegate
             {
                 return 44
             }
-            else if listModel?.widget_type?.integerValue == RecommendWidgetType.WidgetToday.rawValue || listModel?.widget_type?.integerValue == RecommendWidgetType.WidgetOther.rawValue
+            else if listModel?.widget_type?.integerValue == RecommendWidgetType.WidgetToday.rawValue || listModel?.widget_type?.integerValue == RecommendWidgetType.WidgetOther.rawValue || listModel?.widget_type?.integerValue == RecommendWidgetType.WidgetTalent.rawValue || listModel?.widget_type?.integerValue == RecommendWidgetType.WidgetChosen.rawValue
             {
                 return 54
             }
         }
         return 0
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.cellForRowAtIndexPath(indexPath)?.selectionStyle = .None
     }
 }
 

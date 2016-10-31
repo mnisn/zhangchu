@@ -30,11 +30,6 @@ class RecommendWidgetBtnHeaderView: UIView {
         textField.leftViewMode = .Always
     }
     
-//    func leftViewRectForBounds(bounds: CGRect) -> CGRect
-//    {
-//        
-//    }
-    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

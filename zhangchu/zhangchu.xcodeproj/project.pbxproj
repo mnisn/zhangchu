@@ -56,6 +56,10 @@
 		7C2E92881DB9B0D900DD7EC9 /* shike_normal@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7C2E92781DB9B0D900DD7EC9 /* shike_normal@3x.png */; };
 		7C2E92891DB9B0D900DD7EC9 /* shike_select@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7C2E92791DB9B0D900DD7EC9 /* shike_select@2x.png */; };
 		7C2E928A1DB9B0D900DD7EC9 /* shike_select@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7C2E927A1DB9B0D900DD7EC9 /* shike_select@3x.png */; };
+		7C9504851DC6D0EC00D22254 /* RecommentTalentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9504831DC6D0EC00D22254 /* RecommentTalentCell.swift */; };
+		7C9504861DC6D0EC00D22254 /* RecommentTalentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C9504841DC6D0EC00D22254 /* RecommentTalentCell.xib */; };
+		7C9504891DC6DD6D00D22254 /* RecommentChosenCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9504871DC6DD6D00D22254 /* RecommentChosenCell.swift */; };
+		7C95048A1DC6DD6D00D22254 /* RecommentChosenCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C9504881DC6DD6D00D22254 /* RecommentChosenCell.xib */; };
 		7CBD87311DB9B98200E09664 /* UIViewCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CBD87301DB9B98200E09664 /* UIViewCommon.swift */; };
 		7CBD87331DB9BA0D00E09664 /* UILabelCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CBD87321DB9BA0D00E09664 /* UILabelCommon.swift */; };
 		7CBD87351DB9BB8300E09664 /* UIButtonCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CBD87341DB9BB8300E09664 /* UIButtonCommon.swift */; };
@@ -116,6 +120,10 @@
 		7C2E92781DB9B0D900DD7EC9 /* shike_normal@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shike_normal@3x.png"; sourceTree = "<group>"; };
 		7C2E92791DB9B0D900DD7EC9 /* shike_select@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shike_select@2x.png"; sourceTree = "<group>"; };
 		7C2E927A1DB9B0D900DD7EC9 /* shike_select@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shike_select@3x.png"; sourceTree = "<group>"; };
+		7C9504831DC6D0EC00D22254 /* RecommentTalentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecommentTalentCell.swift; sourceTree = "<group>"; };
+		7C9504841DC6D0EC00D22254 /* RecommentTalentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecommentTalentCell.xib; sourceTree = "<group>"; };
+		7C9504871DC6DD6D00D22254 /* RecommentChosenCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecommentChosenCell.swift; sourceTree = "<group>"; };
+		7C9504881DC6DD6D00D22254 /* RecommentChosenCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecommentChosenCell.xib; sourceTree = "<group>"; };
 		7CBD87301DB9B98200E09664 /* UIViewCommon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewCommon.swift; sourceTree = "<group>"; };
 		7CBD87321DB9BA0D00E09664 /* UILabelCommon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UILabelCommon.swift; sourceTree = "<group>"; };
 		7CBD87341DB9BB8300E09664 /* UIButtonCommon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIButtonCommon.swift; sourceTree = "<group>"; };
@@ -492,6 +500,10 @@
 				7C2ABE591DC2E0B0000F44A6 /* RecommendOtherFoodCell.xib */,
 				7C2ABE5E1DC3012E000F44A6 /* RecommendListCell.swift */,
 				7C2ABE5F1DC3012E000F44A6 /* RecommendListCell.xib */,
+				7C9504831DC6D0EC00D22254 /* RecommentTalentCell.swift */,
+				7C9504841DC6D0EC00D22254 /* RecommentTalentCell.xib */,
+				7C9504871DC6DD6D00D22254 /* RecommentChosenCell.swift */,
+				7C9504881DC6DD6D00D22254 /* RecommentChosenCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -699,6 +711,8 @@
 				7C2ABE611DC3012E000F44A6 /* RecommendListCell.xib in Resources */,
 				7C2ABD9A1DC054FA000F44A6 /* search1.png in Resources */,
 				7C2E927D1DB9B0D900DD7EC9 /* community_select@2x.png in Resources */,
+				7C9504861DC6D0EC00D22254 /* RecommentTalentCell.xib in Resources */,
+				7C95048A1DC6DD6D00D22254 /* RecommentChosenCell.xib in Resources */,
 				7C2E91FA1DB9A51A00DD7EC9 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -768,10 +782,12 @@
 				7C2E92601DB9AC5600DD7EC9 /* HappyLifeViewController.swift in Sources */,
 				7C2ABD981DC0539C000F44A6 /* RecommendWidgetBtnHeaderView.swift in Sources */,
 				7CBD87331DB9BA0D00E09664 /* UILabelCommon.swift in Sources */,
+				7C9504891DC6DD6D00D22254 /* RecommentChosenCell.swift in Sources */,
 				7CBD87311DB9B98200E09664 /* UIViewCommon.swift in Sources */,
 				7CBD87371DB9C39F00E09664 /* constant.swift in Sources */,
 				7C2E91F51DB9A51A00DD7EC9 /* AppDelegate.swift in Sources */,
 				7C2ABE031DC1AFB4000F44A6 /* RecommendHeaderView.swift in Sources */,
+				7C9504851DC6D0EC00D22254 /* RecommentTalentCell.swift in Sources */,
 				7C2E92621DB9AC5E00DD7EC9 /* MyViewController.swift in Sources */,
 				7C2ABE5A1DC2E0B0000F44A6 /* RecommendOtherFoodCell.swift in Sources */,
 				7C2ABD341DBF0A53000F44A6 /* RecommendWidgetBtnCell.swift in Sources */,

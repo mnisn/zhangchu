@@ -40,7 +40,7 @@ class RecommendListCell: UITableViewCell {
     }
     
     //创建cell
-    class func createTodayCell(tableView: UITableView, atIndexPath indexPath:NSIndexPath, listModel:RecipeRecommendWidgetList?) ->RecommendListCell
+    class func createListCell(tableView: UITableView, atIndexPath indexPath:NSIndexPath, listModel:RecipeRecommendWidgetList?) ->RecommendListCell
     {
         let cellID = "recommendListCell"
         var cell = tableView.dequeueReusableCellWithIdentifier(cellID) as? RecommendListCell

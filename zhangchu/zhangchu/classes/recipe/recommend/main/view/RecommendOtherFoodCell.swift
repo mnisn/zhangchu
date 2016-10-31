@@ -117,7 +117,7 @@ class RecommendOtherFoodCell: UITableViewCell {
     }
 
     //创建cell
-    class func createTodayCell(tableView: UITableView, atIndexPath indexPath:NSIndexPath, listModel:RecipeRecommendWidgetList?) ->RecommendOtherFoodCell
+    class func createOtherCell(tableView: UITableView, atIndexPath indexPath:NSIndexPath, listModel:RecipeRecommendWidgetList?) ->RecommendOtherFoodCell
     {
         let cellID = "recommendOtherFoodCell"
         var cell = tableView.dequeueReusableCellWithIdentifier(cellID) as? RecommendOtherFoodCell
