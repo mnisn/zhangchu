@@ -1,14 +1,14 @@
 //
-//  MyViewController.swift
+//  RecommendViewController.swift
 //  zhangchu
 //
-//  Created by 苏宁 on 2016/10/21.
+//  Created by 苏宁 on 2016/11/1.
 //  Copyright © 2016年 suning. All rights reserved.
 //
 
 import UIKit
 
-class MyViewController: TabViewController {
+class RecommendViewController: BasicViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

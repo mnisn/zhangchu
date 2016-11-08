@@ -27,8 +27,15 @@ class RecommendBannerCell: UITableViewCell {
 
     private func createData()
     {
+        //注意:滚动视图系统默认添加了一些子视图,删除子视图时要考虑一下会不会影响这些子视图
+        
+        //删除滚动视图之前的子视图
+        for sub in scrollView.subviews {
+            sub.removeFromSuperview()
+        }
+        
         //
-        if bannerArray?.count > 1
+        if bannerArray?.count > 0
         {
             //加约束
             //容器视图
@@ -103,14 +110,14 @@ class RecommendBannerCell: UITableViewCell {
     }
     
     //创建cell方法
-    class func createBannerCell(tableView:UITableView, atIndexPath indexPath:NSIndexPath, bannerArray:[RecipeRecommendBanner]) ->RecommendBannerCell
+    class func createBannerCell(tableView:UITableView, atIndexPath indexPath:NSIndexPath, bannerArray:[RecipeRecommendBanner]?) ->RecommendBannerCell
     {
         let cellID = "recommendBannerCell"
-        //这里要写❓
+        //这里要写as❓
         var cell = tableView.dequeueReusableCellWithIdentifier(cellID) as? RecommendBannerCell
         if nil == cell
         {
-            //这里要写❓
+            //这里要写as❓
             cell = NSBundle.mainBundle().loadNibNamed("RecommendBannerCell", owner: nil, options: nil).last as? RecommendBannerCell
         }
         cell!.bannerArray = bannerArray

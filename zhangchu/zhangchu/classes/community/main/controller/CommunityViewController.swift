@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CommunityViewController: UIViewController {
+class CommunityViewController: TabViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

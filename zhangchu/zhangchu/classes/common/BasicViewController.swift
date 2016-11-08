@@ -9,11 +9,27 @@
 import UIKit
 
 class BasicViewController: UIViewController {
+    
+    func addNavBtn(imgName:String, target:AnyObject?, action:Selector, isLeft:Bool)
+    {
+        let btn = UIButton.createButton(nil, bgImgName: imgName, highlightImgName: nil, selectImgName: nil, target: target, action: action)
+        btn.frame = CGRectMake(10, 0, 22, 33)
+        let barBtn = UIBarButtonItem(customView: btn)
+        if isLeft
+        {
+            navigationItem.leftBarButtonItem = barBtn
+        }
+        else
+        {
+            navigationItem.rightBarButtonItem = barBtn
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        view.backgroundColor = UIColor.whiteColor()
     }
 
     override func didReceiveMemoryWarning() {

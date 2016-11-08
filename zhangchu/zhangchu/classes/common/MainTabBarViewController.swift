@@ -30,7 +30,7 @@ class MainTabBarViewController: UITabBarController {
         tabBarBgView = UIView.createView()
         view.addSubview(tabBarBgView)
         //
-        tabBarBgView.backgroundColor = UIColor(white: 0.9, alpha: 1)
+        tabBarBgView.backgroundColor = UIColor(white: 1, alpha: 1)
 //        tabBarBgView.layer.borderColor = UIColor.blackColor().CGColor
 //        tabBarBgView.layer.borderWidth = 0.5
         //
@@ -156,7 +156,7 @@ class MainTabBarViewController: UITabBarController {
         }
         if controllerNameArray.count == 0
         {
-            controllerNameArray = ["zhangchu.RecipeViewController","zhangchu.CommunityViewController","zhangchu.HappyLifeViewController","zhangchu.MyViewController"]
+            controllerNameArray = ["RecipeViewController","CommunityViewController","HappyLifeViewController","MyViewController"]
         }
         
         //
@@ -179,7 +179,21 @@ class MainTabBarViewController: UITabBarController {
         //自定制tabbar
         createTabBar(iconTitleArray, iconNameNormal: iconNameNormalArray, iconNameSelect: iconNameSelectArray)
     }
+    
+    func showTabbar()
+    {
+        UIView.animateWithDuration(0.25) { 
+            self.tabBarBgView.hidden = false
+        }
+    }
 
+    func hideTabber()
+    {
+        UIView.animateWithDuration(0.25) {
+            self.tabBarBgView.hidden = true
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

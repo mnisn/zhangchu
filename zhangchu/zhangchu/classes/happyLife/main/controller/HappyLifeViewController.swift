@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HappyLifeViewController: UIViewController {
+class HappyLifeViewController: TabViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -18,6 +18,7 @@ public enum RecommendWidgetType: Int
     case WidgetList = 9
     case WidgetTalent = 4
     case WidgetChosen = 8
+    case WidgetTopic = 7
 }
 
 class RecipeRecommendView: UIView {
@@ -42,7 +43,6 @@ class RecipeRecommendView: UIView {
         tableView = UITableView(frame: CGRectZero, style: .Plain)
         tableView?.delegate = self
         tableView?.dataSource = self
-//        tableView?.backgroundColor = UIColor.cyanColor()
         self.addSubview(tableView!)
         
         tableView?.snp_makeConstraints(closure: {
@@ -80,7 +80,12 @@ extension RecipeRecommendView:UITableViewDataSource,UITableViewDelegate
         {
             //
             let listModel = model?.data?.widgetList![section - 1]
-            if (listModel?.widget_type?.integerValue)! == RecommendWidgetType.WidgetBtn.rawValue || (listModel?.widget_type?.integerValue)! == RecommendWidgetType.WidgetImg.rawValue || (listModel?.widget_type?.integerValue)! == RecommendWidgetType.WidgetToday.rawValue || (listModel?.widget_type?.integerValue)! == RecommendWidgetType.WidgetOther.rawValue || (listModel?.widget_type?.integerValue)! == RecommendWidgetType.WidgetList.rawValue || (listModel?.widget_type?.integerValue)! == RecommendWidgetType.WidgetChosen.rawValue
+            if (listModel?.widget_type?.integerValue)! == RecommendWidgetType.WidgetBtn.rawValue ||
+                (listModel?.widget_type?.integerValue)! == RecommendWidgetType.WidgetImg.rawValue ||
+                (listModel?.widget_type?.integerValue)! == RecommendWidgetType.WidgetToday.rawValue ||
+                (listModel?.widget_type?.integerValue)! == RecommendWidgetType.WidgetOther.rawValue ||
+                (listModel?.widget_type?.integerValue)! == RecommendWidgetType.WidgetList.rawValue ||
+                (listModel?.widget_type?.integerValue)! == RecommendWidgetType.WidgetChosen.rawValue
             {
                 //
                 row = 1
@@ -89,6 +94,11 @@ extension RecipeRecommendView:UITableViewDataSource,UITableViewDelegate
             {
                 row = (listModel?.widget_data?.count)! / 4
             }
+            else if (listModel?.widget_type?.integerValue)! == RecommendWidgetType.WidgetTopic.rawValue
+            {
+                row = (listModel?.widget_data?.count)! / 3
+            }
+
         }
         return row
     }
@@ -130,16 +140,21 @@ extension RecipeRecommendView:UITableViewDataSource,UITableViewDelegate
             {
                 height = 170
             }
+            else if (listModel?.widget_type?.integerValue)! == RecommendWidgetType.WidgetTopic.rawValue
+            {
+                height = 140
+            }
         }
         
         return height
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
         if indexPath.section == 0
         {
-            let cell = RecommendBannerCell.createBannerCell(tableView, atIndexPath: indexPath, bannerArray: model!.data!.bannerArray!)
-            //
+            let cell = RecommendBannerCell.createBannerCell(tableView, atIndexPath: indexPath, bannerArray: model?.data!.bannerArray)
+            
             cell.clickClosure = clickClosure
             
             return cell
@@ -189,11 +204,22 @@ extension RecipeRecommendView:UITableViewDataSource,UITableViewDelegate
                 let cell = RecommentTalentCell.createTalentCell(tableView, atIndexPath: indexPath, cellArray: array)
                 //
                 cell.clickClosure = clickClosure
+            
                 return cell
             }
             else if (listModel?.widget_type?.integerValue)! == RecommendWidgetType.WidgetChosen.rawValue
             {
                 let cell = RecommentChosenCell.createChonsenCell(tableView, atIndexPath: indexPath, listModel: listModel)
+                //
+                cell.clickClosure = clickClosure
+                cell.selectionStyle = .None
+                return cell
+            }
+            else if (listModel?.widget_type?.integerValue)! == RecommendWidgetType.WidgetTopic.rawValue
+            {
+                let array = NSArray(array: (listModel?.widget_data)!).subarrayWithRange(NSMakeRange(indexPath.row * 3, 3)) as! [RecipeRecommendWidgetData]
+                
+                let cell = RecommentTopicCell.createTopicCell(tableView, atIndexPath: indexPath, cellArray: array)
                 //
                 cell.clickClosure = clickClosure
                 return cell
@@ -213,7 +239,11 @@ extension RecipeRecommendView:UITableViewDataSource,UITableViewDelegate
                 let widgetBtnHeaderView = RecommendWidgetBtnHeaderView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 44))
                 return widgetBtnHeaderView
             }
-            else if listModel?.widget_type?.integerValue == RecommendWidgetType.WidgetToday.rawValue || listModel?.widget_type?.integerValue == RecommendWidgetType.WidgetOther.rawValue || listModel?.widget_type?.integerValue == RecommendWidgetType.WidgetTalent.rawValue || listModel?.widget_type?.integerValue == RecommendWidgetType.WidgetChosen.rawValue
+            else if listModel?.widget_type?.integerValue == RecommendWidgetType.WidgetToday.rawValue ||
+                listModel?.widget_type?.integerValue == RecommendWidgetType.WidgetOther.rawValue ||
+                listModel?.widget_type?.integerValue == RecommendWidgetType.WidgetTalent.rawValue ||
+                listModel?.widget_type?.integerValue == RecommendWidgetType.WidgetChosen.rawValue ||
+                listModel?.widget_type?.integerValue == RecommendWidgetType.WidgetTopic.rawValue
             {
                 let headerView = RecommendHeaderView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 54))
                 headerView.clickClosure = clickClosure
@@ -233,7 +263,11 @@ extension RecipeRecommendView:UITableViewDataSource,UITableViewDelegate
             {
                 return 44
             }
-            else if listModel?.widget_type?.integerValue == RecommendWidgetType.WidgetToday.rawValue || listModel?.widget_type?.integerValue == RecommendWidgetType.WidgetOther.rawValue || listModel?.widget_type?.integerValue == RecommendWidgetType.WidgetTalent.rawValue || listModel?.widget_type?.integerValue == RecommendWidgetType.WidgetChosen.rawValue
+            else if listModel?.widget_type?.integerValue == RecommendWidgetType.WidgetToday.rawValue ||
+                listModel?.widget_type?.integerValue == RecommendWidgetType.WidgetOther.rawValue ||
+                listModel?.widget_type?.integerValue == RecommendWidgetType.WidgetTalent.rawValue ||
+                listModel?.widget_type?.integerValue == RecommendWidgetType.WidgetChosen.rawValue ||
+                listModel?.widget_type?.integerValue == RecommendWidgetType.WidgetTopic.rawValue
             {
                 return 54
             }
@@ -241,8 +275,17 @@ extension RecipeRecommendView:UITableViewDataSource,UITableViewDelegate
         return 0
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.cellForRowAtIndexPath(indexPath)?.selectionStyle = .None
+    //去除tableview的粘滞性
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        let height:CGFloat = 54
+        if scrollView.contentOffset.y >= height
+        {
+            scrollView.contentInset = UIEdgeInsetsMake(-height, 0, 0, 0)
+        }
+        else if scrollView.contentOffset.y > 0
+        {
+            scrollView.contentInset = UIEdgeInsetsMake(scrollView.contentOffset.y, 0, 0, 0)
+        }
     }
 }
 
